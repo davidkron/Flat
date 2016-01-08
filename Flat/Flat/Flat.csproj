@@ -40,7 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Encoder.cs" />
+    <Compile Include="Encode.cs" />
+    <Compile Include="Encoders\TreeEncoder.cs" />
+    <Compile Include="FlatEntry.cs" />
+    <Compile Include="Encoders\FlatListSerializer.cs" />
+    <Compile Include="Encoders\GraphEncoder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
