@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Flat;
+using Flat.Encoders;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests.EncoderTests
@@ -9,36 +9,19 @@ namespace Tests.EncoderTests
     [TestClass]
     public class GraphEncoderTests
     {
-
-        class TestNode
-        {
-            public string Name { get; set; }
-            public TestNode(string name)
-            {
-                Name = name;
-            }
-
-            public TestNode()
-            {
-            }
-
-            public List<TestNode> Children { get; } = new List<TestNode>();
-            public List<TestNode> Dependencies { get;} = new List<TestNode>();
-        }
-
         [TestMethod]
         public void TestDependenciesAreResolvedToFullName()
         {
-            var logic = new TestNode("Logic");
+            var logic = new TestGraphNode("Logic");
 
-            var root = new List<TestNode>
+            var root = new List<TestGraphNode>
             {
-                new TestNode
+                new TestGraphNode
                 {
                     Name = "Client",
                     Dependencies = { logic }
                 },
-                new TestNode
+                new TestGraphNode
                 {
                     Name = "Lib",
                     Children =
@@ -53,31 +36,31 @@ namespace Tests.EncoderTests
                 parent => parent.Name,
                 parent => parent.Dependencies).ToArray();
 
-            Assert.AreEqual("Client", res[0].name);
-            Assert.AreEqual("Lib\\Logic", res[0].childData.First());
+            res[0].Path.Should().Be("Client");
+            res[0].ChildData.First().Should().Be("Lib\\Logic");
         }
 
         [TestMethod]
         public void GraphFlattener()
         {
-            var root = new List<TestNode>
+            var root = new List<TestGraphNode>
             {
-                new TestNode
+                new TestGraphNode
                 {
                     Name = "AA",
                     Children =
                     {
-                        new TestNode("EE"),
-                        new TestNode("FF")
+                        new TestGraphNode("EE"),
+                        new TestGraphNode("FF")
                     }
                 },
-                new TestNode
+                new TestGraphNode
                 {
                     Name = "BB",
                     Children =
                     {
-                        new TestNode("DD"),
-                        new TestNode("CC")
+                        new TestGraphNode("DD"),
+                        new TestGraphNode("CC")
                     }
                 }
             };
@@ -86,12 +69,13 @@ namespace Tests.EncoderTests
                 parent => parent.Name,
                 parent => parent.Dependencies).ToArray();
 
-            Assert.AreEqual("AA", res[0].name);
-            Assert.AreEqual("AA\\EE", res[1].name);
-            Assert.AreEqual("AA\\FF", res[2].name);
-            Assert.AreEqual("BB", res.ElementAt(3).name);
-            Assert.AreEqual("BB\\CC", res.ElementAt(4).name);
-            Assert.AreEqual("BB\\DD", res.ElementAt(5).name);
+            // Assert
+            res[0].Path.Should().Be("AA");
+            res[1].Path.Should().Be("AA\\EE");
+            res[2].Path.Should().Be("AA\\FF");
+            res[3].Path.Should().Be("BB");
+            res[4].Path.Should().Be("BB\\CC");
+            res[5].Path.Should().Be("BB\\DD");
         }
     }
 }

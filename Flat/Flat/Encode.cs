@@ -12,7 +12,7 @@ namespace Flat
         public static string Graph<T>(IEnumerable<T> nodes, GraphEncoder.GetChildren<T> childAccecor,
             Func<T, string> nameAccessor, GraphEncoder.GetDependencyList<T> dataAccessor)
         {
-            return nodes.EncodeGraph(childAccecor, nameAccessor, dataAccessor);
+            return nodes.ToList().EncodeGraph(childAccecor, nameAccessor, dataAccessor);
         }
 
         public static string Tree<T>(IEnumerable<T> nodes, TreeEncoder.GetChildren<T> childAccecor,

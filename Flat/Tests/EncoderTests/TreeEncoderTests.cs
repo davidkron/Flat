@@ -2,6 +2,7 @@
 using System.Linq;
 using Flat;
 using Flat.Encoders;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests.EncoderTests
@@ -34,8 +35,8 @@ namespace Tests.EncoderTests
                 parent => parent.Name,
                 parent => parent.Data).Split('\n');
             
-            Assert.AreEqual("@Client:", res[0]);
-            Assert.AreEqual("@Lib:", res[1]);
+            res[0].Should().Be("@Client:");
+            res[1].Should().Be("@Lib:");
         }
 
         [TestMethod]
@@ -49,9 +50,9 @@ namespace Tests.EncoderTests
                 parent => parent.Children,
                 parent => parent.Name,
                 parent => parent.Data).Split('\n');
-
-            Assert.AreEqual("@Client:", res[0]);
-            Assert.AreEqual("@Lib:", res[1]);
+            
+            res[0].Should().Be("@Client:");
+            res[1].Should().Be("@Lib:");
         }
 
         [TestMethod]
@@ -70,8 +71,8 @@ namespace Tests.EncoderTests
                 parent => parent.Name,
                 parent => parent.Data).Split('\n');
 
-            Assert.AreEqual("@Client:", res[0]);
-            Assert.AreEqual("@Client\\Windows:", res[1]);
+            res[0].Should().Be("@Client:");
+            res[1].Should().Be("@Client\\Windows:");
         }
 
         [TestMethod]
@@ -96,9 +97,9 @@ namespace Tests.EncoderTests
                 parent => parent.Name,
                 parent => parent.Data).Split('\n');
 
-            Assert.AreEqual("@Client:", res[0]);
-            Assert.AreEqual("@Client\\Windows:", res[1]);
-            Assert.AreEqual("@Client\\Windows\\10:", res[2]);
+            res[0].Should().Be("@Client:");
+            res[1].Should().Be("@Client\\Windows:");
+            res[2].Should().Be("@Client\\Windows\\10:");
         }
 
         [TestMethod]
@@ -121,9 +122,9 @@ namespace Tests.EncoderTests
                 parent => parent.Name,
                 parent => parent.Data).Split('\n');
 
-            Assert.AreEqual("@Client:", res[0]);
-            Assert.AreEqual("@Client\\Linux:", res[1]);
-            Assert.AreEqual("@Client\\Windows:", res[2]);
+            res[0].Should().Be("@Client:");
+            res[1].Should().Be("@Client\\Linux:");
+            res[2].Should().Be("@Client\\Windows:");
         }
 
         [TestMethod]
@@ -155,12 +156,12 @@ namespace Tests.EncoderTests
                 parent => parent.Name,
                 parent => parent.Data).ToArray();
 
-            Assert.AreEqual("Client", res[0].name);
-            Assert.AreEqual("Client\\Linux", res[1].name);
-            Assert.AreEqual("Client\\Windows", res[2].name);
-            Assert.AreEqual("Lib", res[3].name);
-            Assert.AreEqual("Lib\\Common", res[4].name);
-            Assert.AreEqual("Lib\\Logic", res[5].name);
+            res[0].Path.Should().Be("Client");
+            res[1].Path.Should().Be("Client\\Linux");
+            res[2].Path.Should().Be("Client\\Windows");
+            res[3].Path.Should().Be("Lib");
+            res[4].Path.Should().Be("Lib\\Common");
+            res[5].Path.Should().Be("Lib\\Logic");
         }
 
         [TestMethod]
@@ -192,12 +193,12 @@ namespace Tests.EncoderTests
                 parent => parent.Name,
                 parent => parent.Data).ToArray();
 
-            Assert.AreEqual("AA", res[0].name);
-            Assert.AreEqual("AA\\EE", res[1].name);
-            Assert.AreEqual("AA\\FF", res[2].name);
-            Assert.AreEqual("BB", res.ElementAt(3).name);
-            Assert.AreEqual("BB\\CC", res.ElementAt(4).name);
-            Assert.AreEqual("BB\\DD", res.ElementAt(5).name);
+            res[0].Path.Should().Be("AA");
+            res[1].Path.Should().Be("AA\\EE");
+            res[2].Path.Should().Be("AA\\FF");
+            res.ElementAt(3).Path.Should().Be("BB");
+            res.ElementAt(4).Path.Should().Be("BB\\CC");
+            res.ElementAt(5).Path.Should().Be("BB\\DD");
         }
     }
 }

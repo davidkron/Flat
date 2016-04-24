@@ -22,8 +22,8 @@ namespace Flat.Encoders
             {
                 entries.Add(new FlatEntry
                 {
-                    name = path + nameAccessor(node),
-                    childData = dataAccessor(node)
+                    Path = path + nameAccessor(node),
+                    ChildData = dataAccessor(node).ToList()
                 });
                 var newPath = path + nameAccessor(node) + "\\";
                 entries.AddRange(childAccecor(node).FlattenTree(childAccecor, nameAccessor, dataAccessor, newPath));
