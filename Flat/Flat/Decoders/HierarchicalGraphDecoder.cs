@@ -12,17 +12,17 @@ namespace Flat.Decoders
 {
     public class TreeWithDependencies<TNode>
     {
-        public readonly ISet<TNode> Nodes;
+        public readonly ISet<TNode> Tree;
         public readonly ILookup<TNode, TNode> Edges;
 
-        public TreeWithDependencies(ISet<TNode> nodes, ILookup<TNode, TNode> edges)
+        public TreeWithDependencies(ISet<TNode> tree, ILookup<TNode, TNode> edges)
         {
-            Nodes = nodes;
+            Tree = tree;
             Edges = edges;
         }
     }
 
-    public static class GraphDecoder
+    public static class HierarchicalGraphDecoder
     {
         public static TreeWithDependencies<TNode> Decode<TNode>(string text,
             CreateNodeFromName<TNode> createNodeWithName,

@@ -33,13 +33,13 @@ namespace Tests.EncoderTests
         [TestMethod]
         public void TestDependencyPathsAreResolvedToNames()
         {
-            var decodedGraph = GraphDecoder.Decode(
+            var decodedGraph = HierarchicalGraphDecoder.Decode(
                 @"
                 @Client:
                 Lib\Logic
                 @Lib:
                 @Lib\Logic:", name => new TestGraphNode(name),(previous, add) => previous.WithChildren(add));
-            var nodes = decodedGraph.Nodes;
+            var nodes = decodedGraph.Tree;
             var edges = decodedGraph.Edges;
             // Assert
             nodes.Should().ContainSingle(x => x.Name == "Client");
@@ -49,14 +49,14 @@ namespace Tests.EncoderTests
         [TestMethod]
         public void UnFlattens()
         {
-            var nodes = GraphDecoder.Decode(
+            var nodes = HierarchicalGraphDecoder.Decode(
                 @"
                 @AA:
                 @AA\EE:
                 @AA\FF:
                 @BB:
                 @BB\CC:
-                @BB\DD:", name => new TestGraphNode(name), (previous, add) => previous.WithChildren(add)).Nodes;
+                @BB\DD:", name => new TestGraphNode(name), (previous, add) => previous.WithChildren(add)).Tree;
 
             // Assert
 

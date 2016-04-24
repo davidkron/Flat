@@ -45,13 +45,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Decoders\GraphDecoder.cs" />
+    <Compile Include="Decode.cs" />
+    <Compile Include="Decoders\HierarchicalGraphDecoder.cs" />
     <Compile Include="Encode.cs" />
     <Compile Include="Encoders\TreeEncoder.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="FlatEntry.cs" />
     <Compile Include="Encoders\FlatListSerializer.cs" />
-    <Compile Include="Encoders\GraphEncoder.cs" />
+    <Compile Include="Encoders\HierarchicalGraphEncoder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

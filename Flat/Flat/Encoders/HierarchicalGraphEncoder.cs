@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Flat.Encoders
 {
-    public static class GraphEncoder
+    public static class HierarchicalGraphEncoder
     {
         public delegate IEnumerable<T> GetChildren<T>(T parent);
         public delegate IEnumerable<T> GetDependencyList<T>(T parent);
@@ -23,7 +23,7 @@ namespace Flat.Encoders
             return nodesDict;
         }
 
-        public static string EncodeGraph<T>(this IReadOnlyCollection<T> nodes, GetChildren<T> childAccecor, Func<T, string> nameAccessor, GetDependencyList<T> dataAccessor)
+        public static string EncodeHierarchicalGraph<T>(this IReadOnlyCollection<T> nodes, GetChildren<T> childAccecor, Func<T, string> nameAccessor, GetDependencyList<T> dataAccessor)
         {
             var listToEncode = FlattenGraph(nodes, childAccecor, nameAccessor, dataAccessor);
             return FlatListSerializer.EncodeList(listToEncode);
