@@ -2,7 +2,7 @@
 
 namespace Flat
 {
-    public class FlatEntry
+    internal class FlatEntry
     {
         public string Path;
         public IReadOnlyCollection<string> ChildData;

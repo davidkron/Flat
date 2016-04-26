@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Flat;
 using Flat.Encoders;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

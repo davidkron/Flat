@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Flat.Decoders;
-using Flat.Encoders;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -40,7 +39,7 @@ namespace Tests.EncoderTests
                 @Lib:
                 @Lib\Logic:", name => new TestGraphNode(name),(previous, add) => previous.WithChildren(add));
             var nodes = decodedGraph.Tree;
-            var edges = decodedGraph.Edges;
+            var edges = decodedGraph.Dependencies;
             // Assert
             nodes.Should().ContainSingle(x => x.Name == "Client");
             edges[nodes.First(x => x.Name == "Client")].Should().Contain(x => x.Name == "Logic");

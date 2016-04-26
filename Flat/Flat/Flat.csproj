@@ -29,6 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Flat.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -47,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Decode.cs" />
     <Compile Include="Decoders\HierarchicalGraphDecoder.cs" />
+    <Compile Include="TreeWithDependencies.cs" />
     <Compile Include="Encode.cs" />
     <Compile Include="Encoders\TreeEncoder.cs" />
     <Compile Include="Extensions.cs" />

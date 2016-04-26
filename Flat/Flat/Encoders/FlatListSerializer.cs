@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace Flat.Encoders
 {
-    public static class FlatListSerializer
+    internal static class FlatListSerializer
     {
         public static string EncodeList(IEnumerable<FlatEntry> entries) =>
             string.Join("", entries.Select(EncodeSingleEntry));

@@ -8,14 +8,10 @@ using System.Linq;
 
 namespace Flat.Encoders
 {
-    public static class TreeEncoder
+    internal static class TreeEncoder
     {   
 
-        public delegate IEnumerable<T> GetChildren<T>(T parent);
-        public delegate IEnumerable<string> GetDataList<in T>(T parent);
-
-        public static IEnumerable<FlatEntry> FlattenTree<T>(this IEnumerable<T> nodes,
-            GetChildren<T> childAccecor, Func<T, string> nameAccessor, GetDataList<T> dataAccessor, string path = "")
+        public static IEnumerable<FlatEntry> FlattenTree<T>(this IEnumerable<T> nodes, Delegates.GetChildren<T> childAccecor, Func<T, string> nameAccessor, Delegates.GetDataList<T> dataAccessor, string path = "")
         {
             var entries = new List<FlatEntry>();
             foreach (var node in nodes.OrderBy(nameAccessor))
@@ -32,8 +28,7 @@ namespace Flat.Encoders
         }
 
 
-        public static string EncodeTree<T>(this IEnumerable<T> nodes,
-        GetChildren<T> childAccecor, Func<T, string> nameAccessor, GetDataList<T> dataAccessor, string path = "")
+        public static string EncodeTree<T>(this IEnumerable<T> nodes, Delegates.GetChildren<T> childAccecor, Func<T, string> nameAccessor, Delegates.GetDataList<T> dataAccessor, string path = "")
         {
             var listToEncode = nodes.FlattenTree(childAccecor, nameAccessor, dataAccessor);
             return FlatListSerializer.EncodeList(listToEncode);

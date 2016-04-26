@@ -1,32 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Flat.Encoders;
 
 namespace Flat.Decoders
 {
-    public class TreeWithDependencies<TNode>
+    internal static class HierarchicalGraphDecoder
     {
-        public readonly ISet<TNode> Tree;
-        public readonly ILookup<TNode, TNode> Edges;
-
-        public TreeWithDependencies(ISet<TNode> tree, ILookup<TNode, TNode> edges)
-        {
-            Tree = tree;
-            Edges = edges;
-        }
-    }
-
-    public static class HierarchicalGraphDecoder
-    {
-        public static TreeWithDependencies<TNode> Decode<TNode>(string text,
-            CreateNodeFromName<TNode> createNodeWithName,
-            AddChildrenToNode<TNode> addChildrenToNode)
+        public static TreeWithDependencies<TNode> Decode<TNode>(string text, Delegates.CreateNodeFromName<TNode> createNodeWithName, Delegates.AddChildrenToNode<TNode> addChildrenToNode)
         {
             var nodesByPath = new Dictionary<string, TNode>();
             var flats = FlatListSerializer.DecodeFlatlist(text);
@@ -46,15 +28,11 @@ namespace Flat.Decoders
             return edgeList.ToLookup(x => x.Item1, x => x.Item2);
         }
 
-        public delegate T CreateNodeFromName<out T>(string name);
-        public delegate T AddChildrenToNode<T>(T previous, IEnumerable<T> childrenToAdd);
 
         private static IEnumerable<TNode> GetTreeFromFlatlist<TNode>(IReadOnlyCollection<FlatEntry> descendants,
-            IDictionary<string, TNode> nodesByPath, int currentDepth,
-            CreateNodeFromName<TNode> createNodeWithName,
-            AddChildrenToNode<TNode> addChildrenToNode)
+            IDictionary<string, TNode> nodesByPath, int currentDepth, Delegates.CreateNodeFromName<TNode> createNodeWithName, Delegates.AddChildrenToNode<TNode> addChildrenToNode)
         {
-            var isDirectChildren = descendants.ToLookup(X => X.Depth() == currentDepth);
+            var isDirectChildren = descendants.ToLookup(x => x.Depth() == currentDepth);
             var notDirectChildren = isDirectChildren[false].ToMutableSet();
             var directChildren = isDirectChildren[true];
             foreach (var directChild in directChildren)

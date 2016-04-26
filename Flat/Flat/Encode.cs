@@ -5,18 +5,14 @@ using Flat.Encoders;
 
 namespace Flat
 {
-    public class Encode
+    public static class Encode
     {
-        public static string HierarchicalGraph<T>(IEnumerable<T> nodes, HierarchicalGraphEncoder.GetChildren<T> childAccecor,
-            Func<T, string> nameAccessor, HierarchicalGraphEncoder.GetDependencyList<T> dataAccessor)
-        {
-            return nodes.ToList().EncodeHierarchicalGraph(childAccecor, nameAccessor, dataAccessor);
-        }
+        public static string HierarchicalGraph<T>(IEnumerable<T> nodes, Delegates.GetChildren<T> childAccecor,
+            Func<T, string> nameAccessor, Delegates.GetDependencyList<T> dataAccessor)
+        => nodes.ToList().EncodeHierarchicalGraph(childAccecor, nameAccessor, dataAccessor);
 
-        public static string Tree<T>(IEnumerable<T> nodes, TreeEncoder.GetChildren<T> childAccecor,
-            Func<T, string> nameAccessor, TreeEncoder.GetDataList<T> dataAccessor)
-        {
-            return nodes.EncodeTree(childAccecor, nameAccessor, dataAccessor);
-        }
+        public static string Tree<T>(IEnumerable<T> nodes, Delegates.GetChildren<T> childAccecor,
+            Func<T, string> nameAccessor, Delegates.GetDataList<T> dataAccessor)
+            => nodes.EncodeTree(childAccecor, nameAccessor, dataAccessor);
     }
 }
