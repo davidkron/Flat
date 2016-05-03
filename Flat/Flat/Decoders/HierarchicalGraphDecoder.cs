@@ -8,7 +8,7 @@ namespace Flat.Decoders
 {
     internal static class HierarchicalGraphDecoder
     {
-        public static TreeWithDependencies<TNode> Decode<TNode>(string text, Delegates.CreateNodeFromName<TNode> createNodeWithName, Delegates.AddChildrenToNode<TNode> addChildrenToNode)
+        public static TreeWithDependencies<TNode> Decode<TNode>(string text, Delegates.CreateNodeFromNameAndPath<TNode> createNodeWithName, Delegates.AddChildrenToNode<TNode> addChildrenToNode)
         {
             var nodesByPath = new Dictionary<string, TNode>();
             var flats = FlatListSerializer.DecodeFlatlist(text);
@@ -30,7 +30,7 @@ namespace Flat.Decoders
 
 
         private static IEnumerable<TNode> GetTreeFromFlatlist<TNode>(IReadOnlyCollection<FlatEntry> descendants,
-            IDictionary<string, TNode> nodesByPath, int currentDepth, Delegates.CreateNodeFromName<TNode> createNodeWithName, Delegates.AddChildrenToNode<TNode> addChildrenToNode)
+            IDictionary<string, TNode> nodesByPath, int currentDepth, Delegates.CreateNodeFromNameAndPath<TNode> createNodeWithName, Delegates.AddChildrenToNode<TNode> addChildrenToNode)
         {
             var isDirectChildren = descendants.ToLookup(x => x.Depth() == currentDepth);
             var notDirectChildren = isDirectChildren[false].ToMutableSet();
@@ -39,7 +39,7 @@ namespace Flat.Decoders
             {
                 var path = directChild.Path;
                 var name = GetNameFromPath(path);
-                var topNode = createNodeWithName(name);
+                var topNode = createNodeWithName(name, path);
                 var subDescendants = notDirectChildren.Where(x => x.IsDescendantTo(directChild)).ToList();
                 notDirectChildren.ExceptWith(subDescendants);
                 var withChildren = addChildrenToNode(topNode,

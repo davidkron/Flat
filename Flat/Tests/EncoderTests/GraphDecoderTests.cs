@@ -37,7 +37,8 @@ namespace Tests.EncoderTests
                 @Client:
                 Lib\Logic
                 @Lib:
-                @Lib\Logic:", name => new TestGraphNode(name),(previous, add) => previous.WithChildren(add));
+                @Lib\Logic:", (name,path) => new TestGraphNode(name)
+                , (previous, add) => previous.WithChildren(add));
             var nodes = decodedGraph.Tree;
             var edges = decodedGraph.Dependencies;
             // Assert
@@ -55,7 +56,7 @@ namespace Tests.EncoderTests
                 @AA\FF:
                 @BB:
                 @BB\CC:
-                @BB\DD:", name => new TestGraphNode(name), (previous, add) => previous.WithChildren(add)).Tree;
+                @BB\DD:", (name, path) => new TestGraphNode(name), (previous, add) => previous.WithChildren(add)).Tree;
 
             // Assert
 
