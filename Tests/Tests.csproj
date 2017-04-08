@@ -68,9 +68,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Flat.Core\Flat.Core.csproj">
+    <ProjectReference Include="..\Flat\Flat.csproj">
       <Project>{d72e98d5-7c52-4e15-a86c-7330c6b65abb}</Project>
-      <Name>Flat.Core</Name>
+      <Name>Flat</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
