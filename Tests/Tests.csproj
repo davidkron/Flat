@@ -36,13 +36,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FluentAssertions, Version=4.4.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentAssertions.4.4.0\lib\net45\FluentAssertions.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="FluentAssertions, Version=4.19.2.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssertions.4.19.2\lib\net45\FluentAssertions.dll</HintPath>
     </Reference>
-    <Reference Include="FluentAssertions.Core, Version=4.4.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentAssertions.4.4.0\lib\net45\FluentAssertions.Core.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="FluentAssertions.Core, Version=4.19.2.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssertions.4.19.2\lib\net45\FluentAssertions.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
@@ -70,9 +68,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Flat\Flat.csproj">
-      <Project>{ae6f434d-9470-46b0-b27c-64358d2271c5}</Project>
-      <Name>Flat</Name>
+    <ProjectReference Include="..\Flat.Core\Flat.Core.csproj">
+      <Project>{d72e98d5-7c52-4e15-a86c-7330c6b65abb}</Project>
+      <Name>Flat.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
