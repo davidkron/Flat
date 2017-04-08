@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard1.4</TargetFramework>
-    <PackageId>Flat.DAVID_JENSEN</PackageId>
+    <PackageId>Flat</PackageId>
     <PackageVersion>1.0.0</PackageVersion>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <description>Data Interchange format optimized for revision comparison tools. Represents hierarchichal data as a flat list where every entry specifies its complete path.</description>
